@@ -259,38 +259,62 @@ function runsFor(k,p,d) {
   return k/(p*d);
 }
 
-function calc(t,today) {
-  const rem = Math.max(0,99-t.luck);
-  const p = Number(t.rate)/100;
-  const d = (Number(t.drops)||1)+(t.cher?3:0);
-  const dl = daysLeft(t.deadline,today);
-  const over = dl<1;
 
-  const todayWeight = dayWeight(t.name,new Date(today+"T12:00:00"));
-  const remainingWeight = totalWeight(t.name,today,t.deadline);
-  const needed = Math.max(0,99-t.dayLuck);
+function calc(t, today) {
+  const rem = Math.max(0, 99 - t.luck);
+  const p = Number(t.rate) / 100;
+  const d = (Number(t.drops) || 1) + (t.cher ? 3 : 0);
+  const dl = daysLeft(t.deadline, today);
+  const over = dl < 1;
 
-  // 開催日1日分あたりの目標。
-  // 今日が開催期間外でも、開催日が期限内に残っていれば目標を算出する。
-  const dailyGoal = remainingWeight>0 ? needed/remainingWeight : 0;
+  const todayWeight = dayWeight(
+    t.name,
+    new Date(today + "T12:00:00")
+  );
 
-  // 開催日は重みに応じて配分。開催期間外は日ごとの目標を表示せず、
-  // 開催日に必要な1日分の目安を表示する。
-  const plan = todayWeight>0 ? dailyGoal*todayWeight : dailyGoal;
+  // 今日から期限までの開催日数を、0.5日単位で合計
+  const remainingWeight = totalWeight(
+    t.name,
+    today,
+    t.deadline
+  );
 
-  const got = Math.max(0,t.luck-t.dayLuck);
-  const left = Math.max(0,Math.min(rem,plan-got));
-  const runs = left>0 ? Math.ceil(runsFor(left,p,d)) : 0;
-  const toMin = c => runsFor(c,p,d)*Number(t.min);
+  const needed = Math.max(0, 99 - t.dayLuck);
+
+  // 通常開催日1日分の目標
+  const dailyGoal = remainingWeight > 0
+    ? needed / remainingWeight
+    : 0;
+
+  // 今日の開催日数に応じた目標
+  // 通常開催日なら1倍、半日開催なら0.5倍
+  // 非開催日は、次の開催日に向けた目標を表示
+  const plan = todayWeight > 0
+    ? Math.min(needed, dailyGoal * todayWeight)
+    : dailyGoal;
+
+  const got = Math.max(0, t.luck - t.dayLuck);
+  const left = Math.max(0, Math.min(rem, plan - got));
+  const runs = left > 0
+    ? Math.ceil(runsFor(left, p, d))
+    : 0;
+
+  const toMin = c => runsFor(c, p, d) * Number(t.min);
 
   return {
-    rem,dl,over,plan,got,left,runs,
-    tToday:runs*Number(t.min),
-    tTotal:toMin(rem),
+    rem,
+    dl,
+    over,
+    plan,
+    dailyGoal,
+    got,
+    left,
+    runs,
+    tToday: runs * Number(t.min),
+    tTotal: toMin(rem),
     todayWeight
   };
 }
-
 function render() {
   const today = iso(new Date());
 
