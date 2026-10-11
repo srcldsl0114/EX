@@ -289,10 +289,30 @@ function calc(t, today) {
   // 今日の開催日数に応じた目標
   // 通常開催日なら1倍、半日開催なら0.5倍
   // 非開催日は、次の開催日に向けた目標を表示
-  const plan = todayWeight > 0
-  ? Math.min(needed, dailyGoal)
-  : dailyGoal;
 
+  // 今日が非開催日なら、次の開催日の重みを取得
+  let targetWeight = todayWeight;
+
+  if (targetWeight === 0) {
+    const date = new Date(today + "T12:00:00");
+    const end = new Date(t.deadline + "T12:00:00");
+
+    while (date <= end) {
+      const weight = dayWeight(t.name, date);
+
+      if (weight > 0) {
+        targetWeight = weight;
+        break;
+      }
+
+      date.setDate(date.getDate() + 1);
+    }
+  }
+
+  const plan = remainingWeight > 0
+    ? Math.min(needed, dailyGoal * targetWeight)
+    : 0;
+  
   const got = Math.max(0, t.luck - t.dayLuck);
   const left = Math.max(0, Math.min(rem, plan - got));
   const runs = left > 0
