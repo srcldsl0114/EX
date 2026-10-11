@@ -137,6 +137,17 @@ function render(){
 }
 
 $("add").onclick=()=>{
+  const rates = {
+  "インゼムニア": 3,
+  "アムネディア": 3,
+  "コルティーナ": 3,
+  "不可思議": 3,
+  "アーキレット": 1
+};
+
+$("nm").addEventListener("change", () => {
+  $("rt").value = rates[$("nm").value];
+});
   const t={name:$("nm").value,luck:parseInt($("lk").value,10),deadline:$("dl").value,min:parseFloat($("mn").value),rate:parseFloat($("rt").value),drops:parseInt($("dp").value,10)||5,cher:false};
   let e="";
   if(!(t.luck>=0&&t.luck<=99))e="ラックは0〜99で入力してください。";
