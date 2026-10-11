@@ -271,7 +271,10 @@ function runsFor(k,p,d) {
 
 function calc(t, today) {
   const rem = Math.max(0, 99 - t.luck);
-  const p = Number(t.rate) / 100;
+const p = Math.min(
+  1,
+  Number(t.rate) / 100 * (Number(t.multiplier) || 1)
+);
   const d = (Number(t.drops) || 1) + (t.cher ? 3 : 0);
   const dl = daysLeft(t.deadline, today);
   const over = dl < 1;
