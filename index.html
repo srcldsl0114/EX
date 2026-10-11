@@ -373,7 +373,7 @@ function render() {
             <span>今日入手 ${c.got}体／目標まで約${r1(c.left)}体</span>
           </div>
           <div class="st">
-            <small>${c.todayWeight===0?"開催日に必要な周回数":"今日あと何周"}</small>
+            <small>${c.todayWeight===0?"開催日の必要な周回数":"今日あと何周"}</small>
             <b>${c.runs}周</b><br>
             <span>出現率 ${t.rate}%・${(Number(t.drops)||1)+(t.cher?3:0)}泥/周</span>
           </div>
