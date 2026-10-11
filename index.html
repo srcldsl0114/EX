@@ -102,23 +102,64 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 function fmt(m){m=Math.round(m);if(m<=0)return "0分";if(m<60)return m+"分";const h=Math.floor(m/60),r=m%60;return h+"時間"+(r?r+"分":"")}
 function r1(x){return Math.round(x*10)/10}
 function daysLeft(dl,today){return Math.round((new Date(dl+"T00:00")-new Date(today+"T00:00"))/864e5)+1}
-
-function runsFor(k,p,d){
-  if(k<=0)return 0;
-  const m=1;
+function dayWeight(name, date) {
+  const day = date.getDate();
   
-  return k/(p*d);
+  if (name === "アムネディア" || name === "インゼムニア") {　　　　　　　//ここから降臨日に関するやつ
+    if (day >= 22 && day <= 26) return 0;
+    if (day === 27 || day === 21) return 0.5;
+    return 1;
+  }
+  if (name === "不可思議") {
+    if (day >= 9 && day <= 20) return 0;
+    if (day === 21 || day === 8) return 0.5;
+    return 1;
+  }
+  return 1;
 }
-function calc(t,today){
-  const rem=99-t.luck,p=t.rate/100,d=(t.drops||5)+(t.cher?3:0);
-  const dl=daysLeft(t.deadline,today),over=dl<1,n=Math.max(1,dl);
-  const plan=(99-t.dayLuck)/n;
-  const got=Math.max(0,t.luck-t.dayLuck);
-  const left=Math.max(0,Math.min(rem,plan-got));const R=runsFor(99-t.dayLuck,p,d)/n,runs=plan>0?Math.ceil(R*left/plan-1e-9):0;
-  const toMin=c=>runsFor(c,p,d)*t.min;
-  return{rem,dl,over,n,plan,got,left,runs,tToday:runs*t.min,tTotal:toMin(rem)};
+function totalWeight(name, today, deadline) {
+  let date = new Date(today + "T12:00:00");
+  const end = new Date(deadline + "T12:00:00");
+  let total = 0;
+  if (end < date) return 0;
+  while (date <= end) {
+    total += dayWeight(name, date);
+    date.setDate(date.getDate() + 1);
+  }
+  return total;
 }
-
+function runsFor(k, p, d) {
+  if (k <= 0 || p <= 0 || d <= 0) return 0;
+  return k / (p * d);
+}
+function calc(t, today) {
+  const rem = Math.max(0, 99 - t.luck);
+  const p = t.rate / 100;
+  const d = (t.drops || 1) + (t.cher ? 3 : 0);
+  const dl = daysLeft(t.deadline, today);
+  const over = dl < 1;
+  const todayWeight = dayWeight(
+    t.name,
+    new Date(today + "T12:00:00")
+  );
+  const remainingWeight = totalWeight(
+    t.name, today, t.deadline
+  );
+  const plan = remainingWeight > 0
+    ? Math.max(0, 99 - t.dayLuck) * todayWeight / remainingWeight
+    : 0;
+  const got = Math.max(0, t.luck - t.dayLuck);
+  const left = Math.max(0, Math.min(rem, plan - got));
+  const runs = left > 0
+    ? Math.ceil(runsFor(left, p, d))
+    : 0;
+  const toMin = c => runsFor(c, p, d) * t.min;
+  return {
+    rem, dl, over, plan, got, left, runs,
+    tToday: runs * t.min,
+    tTotal: toMin(rem)
+  };
+}
 function render(){
   const today=iso(new Date());
   S.targets.forEach(t=>{if(t.dayDate!==today){t.dayDate=today;t.dayLuck=t.luck}});
