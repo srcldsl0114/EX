@@ -158,6 +158,7 @@ $("list").onchange=e=>{const c=e.target.closest("[data-ch]");if(c){S.targets[c.d
   const x=e.target.closest("[data-luck]");
   if(x){const t=S.targets[x.dataset.luck],v=parseInt(x.value,10);if(v>=0&&v<=99){t.luck=v;t.dayLuck=Math.min(t.dayLuck,v);save()}render()}
 };
+  $("rt").value = rates[$("nm").value];
 render();
 </script>
 </body>
