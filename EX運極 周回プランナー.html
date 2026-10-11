@@ -59,10 +59,11 @@ button.ghost{background:transparent;color:var(--accent)}
   <div class="row" style="margin-top:10px">
     <div><label for="mn">1周にかかる時間（分）</label><input id="mn" type="number" min="0" step="any" placeholder="例：3"></div>
     <div><label for="rt">出現率（%・1泥あたり）</label><input id="rt" type="number" min="0" max="100" step="any" placeholder="例：10"></div>
-    <div><label for="dp">1回の泥数（理論値5）</label><input id="dp" type="number" min="1" step="1" value="5"></div>
+    <div><label for="dp">1回のドロップ数</label><input id="dp" type="number" min="1" step="1" value="5"></div>
     <div style="flex:1 1 170px"><label for="ch">チェルノボグ</label><label class="chk"><input id="ch" type="checkbox" style="width:auto"> 使用する（+3泥）</label></div>
-    <div><label for="mg">余裕・下振れの見込み</label>
-      <select id="mg"><option value="1">平均どおり（1.0倍）</option><option value="1.2">1.2倍</option><option value="1.5">1.5倍</option><option value="z90">下振れ想定 90%（10回中9回は達成）</option><option value="z95">下振れ想定 95%（20回中19回は達成）</option></select></div>
+    <div><label for="mg">上振れ・下振れの見込み</label>
+      <select id="mg"><option value="1">平均どおり（1.0倍）</option><option value="1.2">1.2倍</option><option value="1.5">1.5倍</option><option value="z90"><option value="0.8">下振れ想定（出現率0.8倍）</option>
+      </select></div>
     <button id="add" style="flex:0 0 auto">追加</button>
   </div>
   <div class="over" id="err" role="alert"></div>
