@@ -5,58 +5,236 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EX運極計画</title>
+
 <style>
-:root{--bg:#f2f3f9;--card:#fff;--ink:#1d2140;--sub:#687090;--line:#dadff0;--accent:#4a4fd1;--soft:#e4e6fb;--ok:#1f8a5b;--warn:#c4562a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172b;--card:#1d2140;--ink:#e8eaf8;--sub:#9aa2c8;--line:#2f3563;--accent:#8c91ff;--soft:#2a2f5e;--ok:#4fd1a0;--warn:#ff9a6e}}
-:root[data-theme="dark"]{--bg:#14172b;--card:#1d2140;--ink:#e8eaf8;--sub:#9aa2c8;--line:#2f3563;--accent:#8c91ff;--soft:#2a2f5e;--ok:#4fd1a0;--warn:#ff9a6e}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.6}
-main{max-width:860px;margin:0 auto;padding:20px 16px 48px}
-h1{font-size:22px;margin:0 0 16px}
-h2{font-size:16px;margin:0 0 10px}
-section,.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
-label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
-input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
-input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.row>div{flex:1 1 120px}
-.row.r1,.row.r2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
-.row.r1{grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1fr)}
-.row.r1>div,.row.r2>div{min-width:0}
-@media (max-width:520px){.row.r1,.row.r2{grid-template-columns:repeat(2,minmax(0,1fr))}}
-input,select{min-width:0;max-width:100%;display:block}
-input[type=date]{-webkit-appearance:none;appearance:none;min-height:38px}
-button{font:inherit;cursor:pointer;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:8px 16px}
-@media (prefers-color-scheme:dark){button:not(.ghost):not(.del){color:#14172b}}
-button.ghost{background:transparent;color:var(--accent)}
-.del{background:transparent;border:1px solid var(--line);color:var(--warn);padding:4px 10px;font-size:13px;border-radius:6px}
-.sumline{font-size:15px}.sumline b{font-size:18px;color:var(--accent)}
-.ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
-.ch .nm{font-size:18px;font-weight:700}
-.sub{color:var(--sub);font-size:13px}
-.bar{height:14px;background:var(--soft);border-radius:7px;overflow:hidden;margin:8px 0 2px}
-.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
-.bt{display:flex;justify-content:space-between;font-size:13px;color:var(--sub)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
-.st{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
-.st small{display:block;color:var(--sub);font-size:12px}
-.st b{font-size:20px}
-.st span{font-size:12px;color:var(--sub)}
-.log{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
-.log>div{flex:0 1 110px}
-.done{color:var(--ok);font-weight:700}
-.over{color:var(--warn);font-size:13px}
-.empty{color:var(--sub);font-size:14px}
-.chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink);margin:0;padding:8px 0;cursor:pointer}
+:root {
+  --bg:#f2f3f9;
+  --card:#fff;
+  --ink:#1d2140;
+  --sub:#687090;
+  --line:#dadff0;
+  --accent:#4a4fd1;
+  --soft:#e4e6fb;
+  --ok:#1f8a5b;
+  --warn:#c4562a;
+  box-sizing:border-box;
+}
+
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#14172b;
+    --card:#1d2140;
+    --ink:#e8eaf8;
+    --sub:#9aa2c8;
+    --line:#2f3563;
+    --accent:#8c91ff;
+    --soft:#2a2f5e;
+    --ok:#4fd1a0;
+    --warn:#ff9a6e;
+  }
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  line-height:1.6;
+}
+
+main {
+  max-width:860px;
+  margin:0 auto;
+  padding:20px 16px 48px;
+}
+
+h1 { font-size:22px; margin:0 0 16px; }
+h2 { font-size:16px; margin:0 0 10px; }
+
+section,.card {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+label {
+  display:block;
+  font-size:12px;
+  color:var(--sub);
+  margin-bottom:3px;
+}
+
+input,select {
+  font:inherit;
+  color:var(--ink);
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:8px 10px;
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  display:block;
+}
+
+input:focus-visible,select:focus-visible,button:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+.row {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+}
+
+.row>div { flex:0 1 110px; }
+
+.row.r1,.row.r2 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  align-items:end;
+}
+
+.row.r1 {
+  grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1fr);
+}
+
+.row.r1>div,.row.r2>div { min-width:0; }
+
+@media (max-width:520px) {
+  .row.r1,.row.r2 {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+input[type=date] {
+  -webkit-appearance:none;
+  appearance:none;
+  min-height:38px;
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+  border-radius:6px;
+  border:1px solid var(--accent);
+  background:var(--accent);
+  color:#fff;
+  padding:8px 16px;
+}
+
+button.ghost {
+  background:transparent;
+  color:var(--accent);
+}
+
+.del {
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--warn);
+  padding:4px 10px;
+  font-size:13px;
+  border-radius:6px;
+}
+
+.sumline { font-size:15px; }
+.sumline b { font-size:18px; color:var(--accent); }
+
+.ch {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.ch .nm { font-size:18px; font-weight:700; }
+.sub { color:var(--sub); font-size:13px; }
+
+.bar {
+  height:14px;
+  background:var(--soft);
+  border-radius:7px;
+  overflow:hidden;
+  margin:8px 0 2px;
+}
+
+.bar i {
+  display:block;
+  height:100%;
+  background:var(--accent);
+  transition:width .25s;
+}
+
+.bt {
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:var(--sub);
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;
+  margin:12px 0;
+}
+
+.st {
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 10px;
+}
+
+.st small {
+  display:block;
+  color:var(--sub);
+  font-size:12px;
+}
+
+.st b { font-size:20px; }
+.st span { font-size:12px; color:var(--sub); }
+
+.log {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+}
+
+.log>div { flex:0 1 110px; }
+.done { color:var(--ok); font-weight:700; }
+.over { color:var(--warn); font-size:13px; }
+.empty { color:var(--sub); font-size:14px; }
+
+.chk {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:14px;
+  color:var(--ink);
+  margin:0;
+  padding:8px 0;
+  cursor:pointer;
+}
 </style>
 </head>
+
 <body>
 <main>
 <h1>EX運極計画</h1>
 
 <section>
   <h2>目標を追加</h2>
+
   <div class="row r1">
     <div>
       <label for="nm">モンスター</label>
@@ -68,10 +246,12 @@ button.ghost{background:transparent;color:var(--accent)}
         <option>不可思議</option>
       </select>
     </div>
+
     <div>
       <label for="lk">現在のラック(/99)</label>
       <input id="lk" type="number" min="0" max="99" step="1" value="0">
     </div>
+
     <div>
       <label for="dl">運極にしたい期限</label>
       <input id="dl" type="date">
@@ -94,61 +274,75 @@ button.ghost{background:transparent;color:var(--accent)}
         <option value="10">10分</option>
       </select>
     </div>
+
     <div>
       <label for="rt">出現率（%）</label>
       <input id="rt" type="number" min="0" max="100" step="any" placeholder="例：3">
     </div>
+
     <div>
       <label for="dp">1回での泥数</label>
       <input id="dp" type="number" min="1" step="1" value="1">
     </div>
+
     <button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
   </div>
+
   <div class="over" id="err" role="alert"></div>
 </section>
 
 <div class="card" id="sumcard" style="display:none">
   <div class="sumline" id="sum"></div>
 </div>
+
 <div id="list"></div>
 </main>
 
 <script>
+"use strict";
+
 const KEY = "monstExPlannerV2";
-let S = {margin:1,targets:[]};
-let pendingDel = -1;
+let S = {targets:[]};
 
 try {
-  const r = localStorage.getItem(KEY);
-  if (r) S = Object.assign(S, JSON.parse(r));
+  const saved = localStorage.getItem(KEY);
+  if (saved) S = Object.assign(S,JSON.parse(saved));
 } catch(e) {}
 
+if (!Array.isArray(S.targets)) S.targets = [];
+
 const $ = id => document.getElementById(id);
+let pendingDel = -1;
 
 function save() {
   try {
-    localStorage.setItem(KEY, JSON.stringify(S));
+    localStorage.setItem(KEY,JSON.stringify(S));
   } catch(e) {}
 }
 
 function iso(d) {
-  return d.getFullYear() + "-" +
-    String(d.getMonth()+1).padStart(2,"0") + "-" +
+  return d.getFullYear()+"-"+
+    String(d.getMonth()+1).padStart(2,"0")+"-"+
     String(d.getDate()).padStart(2,"0");
 }
 
 function esc(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  return String(s).replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
   }[c]));
 }
 
 function fmt(m) {
   m = Math.round(m);
-  if (m <= 0) return "0分";
-  if (m < 60) return m + "分";
-  const h = Math.floor(m/60), r = m%60;
-  return h + "時間" + (r ? r+"分" : "");
+  if (m<=0) return "0分";
+  if (m<60) return m+"分";
+  const h = Math.floor(m/60);
+  const r = m%60;
+  return h+"時間"+(r?r+"分":"");
 }
 
 function r1(x) {
@@ -157,38 +351,38 @@ function r1(x) {
 
 function daysLeft(dl,today) {
   return Math.round(
-    (new Date(dl+"T00:00") - new Date(today+"T00:00")) / 864e5
-  ) + 1;
+    (new Date(dl+"T00:00:00")-new Date(today+"T00:00:00"))/864e5
+  )+1;
 }
 
-// 日ごとの開催重み：通常日=1、半日=0.5、開催なし=0
+// 開催日：通常日=1、半日=0.5、開催なし=0
 function dayWeight(name,date) {
   const day = date.getDate();
 
-  if (name === "アムネディア" || name === "インゼムニア") {
-    if (day >= 22 && day <= 26) return 0;
-    if (day === 21 || day === 27) return 0.5;
+  if (name==="アムネディア" || name==="インゼムニア") {
+    if (day>=22 && day<=26) return 0;
+    if (day===21 || day===27) return 0.5;
     return 1;
   }
 
-  if (name === "不可思議") {
-    if (day >= 9 && day <= 20) return 0;
-    if (day === 8 || day === 21) return 0.5;
+  if (name==="不可思議") {
+    if (day>=9 && day<=20) return 0;
+    if (day===8 || day===21) return 0.5;
     return 1;
   }
 
   return 1;
 }
 
-// 今日から期限までの開催重みを合計
+// 今日から期限までの開催日数を重み付きで計算
 function totalWeight(name,today,deadline) {
   let date = new Date(today+"T12:00:00");
   const end = new Date(deadline+"T12:00:00");
   let total = 0;
 
-  if (end < date) return 0;
+  if (end<date) return 0;
 
-  while (date <= end) {
+  while (date<=end) {
     total += dayWeight(name,date);
     date.setDate(date.getDate()+1);
   }
@@ -196,129 +390,97 @@ function totalWeight(name,today,deadline) {
   return total;
 }
 
-// 必要な周回数の期待値
 function runsFor(k,p,d) {
-  if (k <= 0 || p <= 0 || d <= 0) return 0;
+  if (k<=0 || p<=0 || d<=0) return 0;
   return k/(p*d);
 }
 
 function calc(t,today) {
   const rem = Math.max(0,99-t.luck);
-  const p = t.rate/100;
-  const d = (t.drops || 1) + (t.cher ? 3 : 0);
+  const p = Number(t.rate)/100;
+  const d = (Number(t.drops)||1)+(t.cher?3:0);
   const dl = daysLeft(t.deadline,today);
-  const over = dl < 1;
+  const over = dl<1;
 
-  const date = new Date(today+"T12:00:00");
-  const todayWeight = dayWeight(t.name,date);
+  const todayWeight = dayWeight(t.name,new Date(today+"T12:00:00"));
   const remainingWeight = totalWeight(t.name,today,t.deadline);
-  const needed = Math.max(0,99-t.dayLuck);
 
-  // 今日の目標。開催期間外は0
-  const plan = remainingWeight > 0
-    ? needed * todayWeight / remainingWeight
+  // 今日の目標ラック数を、開催日数の重みで配分
+  const needed = Math.max(0,99-t.dayLuck);
+  const plan = remainingWeight>0
+    ? needed*todayWeight/remainingWeight
     : 0;
 
-  // 今日の実績
   const got = Math.max(0,t.luck-t.dayLuck);
   const left = Math.max(0,Math.min(rem,plan-got));
-  const runs = left > 0
+  const runs = left>0
     ? Math.ceil(runsFor(left,p,d))
     : 0;
 
-  // 開催期間外なら、期限までにある次の開催日を探す
-  let nextDate = null;
-  let nextPlan = 0;
-
-  if (todayWeight === 0 && remainingWeight > 0) {
-    const searchDate = new Date(date);
-    const end = new Date(t.deadline+"T12:00:00");
-
-    searchDate.setDate(searchDate.getDate()+1);
-
-    while (searchDate <= end) {
-      const weight = dayWeight(t.name,searchDate);
-
-      if (weight > 0) {
-        nextDate = iso(searchDate);
-        nextPlan = needed * weight / remainingWeight;
-        break;
-      }
-
-      searchDate.setDate(searchDate.getDate()+1);
-    }
-  }
-
-  const toMin = c => runsFor(c,p,d)*t.min;
+  const toMin = c => runsFor(c,p,d)*Number(t.min);
 
   return {
     rem,dl,over,plan,got,left,runs,
-    tToday:runs*t.min,
-    tTotal:toMin(rem),
-    todayWeight,nextDate,nextPlan
+    tToday:runs*Number(t.min),
+    tTotal:toMin(rem)
   };
 }
 
 function render() {
   const today = iso(new Date());
 
-  S.targets.forEach(t => {
-    if (t.dayDate !== today) {
+  S.targets.forEach(t=>{
+    if (t.dayDate!==today) {
       t.dayDate = today;
       t.dayLuck = t.luck;
     }
-    if (typeof t.dayLuck !== "number") t.dayLuck = t.luck;
+    if (typeof t.dayLuck!=="number") t.dayLuck = t.luck;
   });
 
   if (!S.targets.length) {
     $("sumcard").style.display = "none";
     $("list").innerHTML =
-      '<p class="empty">モンスターを選び、現在のラック・期限・1周の時間・出現率を入れると、目標がここに出ます。</p>';
+      '<p class="empty">モンスターを選び、現在のラック・期限・1周の時間・出現率を入力すると、目標がここに表示されます。</p>';
     save();
     return;
   }
 
-  let tt = 0, ta = 0;
+  let totalToday = 0;
+  let totalOverall = 0;
 
-  $("list").innerHTML = S.targets.map((t,i) => {
+  $("list").innerHTML = S.targets.map((t,i)=>{
     const c = calc(t,today);
-    tt += c.tToday;
-    ta += c.tTotal;
+    totalToday += c.tToday;
+    totalOverall += c.tTotal;
 
     const pct = Math.round(t.luck/99*100);
 
-    const nextInfo = c.nextDate
-      ? `<div class="st">
-           <small>次回開催日</small>
-           <b>${esc(c.nextDate)}</b><br>
-           <span>次回の目標 約${r1(c.nextPlan)}体</span>
-         </div>`
-      : "";
-
-    const body = c.rem === 0
-      ? `<p class="done">運極達成！</p>`
+    const body = c.rem===0
+      ? '<p class="done">運極達成！</p>'
       : `<div class="stats">
           <div class="st">
             <small>今日の目標</small>
             <b>約${r1(c.plan)}体</b><br>
-            <span>済 ${c.got}体／あと約${r1(c.left)}体</span>
+            <span>今日入手 ${c.got}体／あと約${r1(c.left)}体</span>
           </div>
+
           <div class="st">
             <small>今日あと何周</small>
             <b>${c.runs}周</b><br>
-            <span>出現率 ${t.rate}%・${(t.drops||1)+(t.cher?3:0)}泥/周</span>
+            <span>出現率 ${t.rate}%・${(Number(t.drops)||1)+(t.cher?3:0)}泥/周</span>
           </div>
+
           <div class="st">
             <small>今日の残り時間</small>
             <b>${fmt(c.tToday)}</b><br>
             <span>1周 ${t.min}分</span>
           </div>
+
           <div class="st">
             <small>運極まで合計</small>
             <b>${fmt(c.tTotal)}</b><br>
             <span>残り ${c.rem}体</span>
           </div>
-          ${nextInfo}
         </div>`;
 
     return `<div class="card">
@@ -331,19 +493,28 @@ function render() {
           <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button>
         </span>
       </div>
+
       <div class="bar"><i style="width:${pct}%"></i></div>
-      <div class="bt"><span>ラック ${t.luck} / 99</span><span>${pct}%</span></div>
+      <div class="bt">
+        <span>ラック ${t.luck} / 99</span>
+        <span>${pct}%</span>
+      </div>
+
       ${body}
+
       <div class="log">
         <div>
-          <label>今日入手した体数</label>
+          <label for="g${i}">今日入手した体数</label>
           <input type="number" min="0" step="1" value="1" id="g${i}">
         </div>
+
         <div>
           <label>現在のラック</label>
           <input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}">
         </div>
+
         <button data-log="${i}">記録</button>
+
         <label class="chk" style="flex:1 1 180px">
           <input type="checkbox" data-ch="${i}" ${t.cher?"checked":""} style="width:auto">
           チェルノボグ使用（+3泥）
@@ -354,7 +525,7 @@ function render() {
 
   $("sumcard").style.display = "";
   $("sum").innerHTML =
-    `今日残り <b>${fmt(tt)}</b>　／　運極までの合計 <b>${fmt(ta)}</b>`;
+    `今日残り <b>${fmt(totalToday)}</b> ／ 運極までの合計 <b>${fmt(totalOverall)}</b>`;
 
   save();
 }
@@ -367,11 +538,11 @@ const rates = {
   "アーキレット":1
 };
 
-$("nm").addEventListener("change",() => {
+$("nm").addEventListener("change",()=>{
   $("rt").value = rates[$("nm").value];
 });
 
-$("add").onclick = () => {
+$("add").onclick = ()=>{
   const t = {
     name:$("nm").value,
     luck:parseInt($("lk").value,10),
@@ -382,41 +553,40 @@ $("add").onclick = () => {
     cher:false
   };
 
-  let e = "";
+  let err = "";
 
-  if (!(t.luck>=0 && t.luck<=99)) {
-    e = "ラックは0〜99で入力してください。";
+  if (!(Number.isInteger(t.luck)&&t.luck>=0&&t.luck<=99)) {
+    err = "ラックは0〜99の整数で入力してください。";
   } else if (!t.deadline) {
-    e = "期限を選んでください。";
+    err = "期限を選んでください。";
+  } else if (daysLeft(t.deadline,iso(new Date()))<1) {
+    err = "期限は今日以降の日付を選んでください。";
   } else if (!(t.min>0)) {
-    e = "1周にかかる時間（分）を入力してください。";
-  } else if (!(t.rate>0 && t.rate<=100)) {
-    e = "出現率は0より大きく100以下の%で入力してください。";
-  } else if (!(t.drops>=1)) {
-    e = "1回での泥数は1以上で入力してください。";
+    err = "1周にかかる時間を入力してください。";
+  } else if (!(t.rate>0&&t.rate<=100)) {
+    err = "出現率は0より大きく100以下の%で入力してください。";
+  } else if (!(Number.isInteger(t.drops)&&t.drops>=1)) {
+    err = "1回での泥数は1以上の整数で入力してください。";
   }
 
-  $("err").textContent = e;
-  if (e) return;
+  $("err").textContent = err;
+  if (err) return;
 
   t.dayDate = iso(new Date());
   t.dayLuck = t.luck;
   S.targets.push(t);
+
   save();
   render();
 };
 
-$("list").onclick = e => {
-  if (pendingDel>=0 && !e.target.closest("[data-del]")) {
-    pendingDel = -1;
-    render();
-  }
+$("list").onclick = e=>{
+  const logButton = e.target.closest("[data-log]");
 
-  const l = e.target.closest("[data-log]");
-  if (l) {
-    const i = Number(l.dataset.log);
+  if (logButton) {
+    const i = Number(logButton.dataset.log);
     const t = S.targets[i];
-    const g = parseInt($("g"+i).value,10)||0;
+    const g = Math.max(0,parseInt($("g"+i).value,10)||0);
 
     t.luck = Math.max(0,Math.min(99,t.luck+g));
     save();
@@ -424,9 +594,10 @@ $("list").onclick = e => {
     return;
   }
 
-  const d = e.target.closest("[data-del]");
-  if (d) {
-    const i = Number(d.dataset.del);
+  const delButton = e.target.closest("[data-del]");
+
+  if (delButton) {
+    const i = Number(delButton.dataset.del);
 
     if (pendingDel===i) {
       S.targets.splice(i,1);
@@ -440,21 +611,23 @@ $("list").onclick = e => {
   }
 };
 
-$("list").onchange = e => {
-  const c = e.target.closest("[data-ch]");
-  if (c) {
-    S.targets[c.dataset.ch].cher = c.checked;
+$("list").onchange = e=>{
+  const check = e.target.closest("[data-ch]");
+
+  if (check) {
+    S.targets[Number(check.dataset.ch)].cher = check.checked;
     save();
     render();
     return;
   }
 
-  const x = e.target.closest("[data-luck]");
-  if (x) {
-    const t = S.targets[x.dataset.luck];
-    const v = parseInt(x.value,10);
+  const luckInput = e.target.closest("[data-luck]");
 
-    if (v>=0 && v<=99) {
+  if (luckInput) {
+    const t = S.targets[Number(luckInput.dataset.luck)];
+    const v = parseInt(luckInput.value,10);
+
+    if (Number.isInteger(v)&&v>=0&&v<=99) {
       t.luck = v;
       t.dayLuck = Math.min(t.dayLuck,v);
       save();
@@ -465,206 +638,6 @@ $("list").onchange = e => {
 };
 
 $("rt").value = rates[$("nm").value];
-render();
-</script>
-</body>
-</html>button.ghost{background:transparent;color:var(--accent)}
-.del{background:transparent;border:1px solid var(--line);color:var(--warn);padding:4px 10px;font-size:13px;border-radius:6px}
-.sumline{font-size:15px}.sumline b{font-size:18px;color:var(--accent)}
-.ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
-.ch .nm{font-size:18px;font-weight:700}
-.sub{color:var(--sub);font-size:13px}
-.bar{height:14px;background:var(--soft);border-radius:7px;overflow:hidden;margin:8px 0 2px}
-.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
-.bt{display:flex;justify-content:space-between;font-size:13px;color:var(--sub)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
-.st{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
-.st small{display:block;color:var(--sub);font-size:12px}
-.st b{font-size:20px}
-.st span{font-size:12px;color:var(--sub)}
-.log{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
-.log>div{flex:0 1 110px}
-.done{color:var(--ok);font-weight:700}
-.over{color:var(--warn);font-size:13px}
-.empty{color:var(--sub);font-size:14px}
-.chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink);margin:0;padding:8px 0;cursor:pointer}
-</style>
-</head>
-<body>
-<main>
-<h1>EX運極計画</h1>
-
-<section>
-  <h2>目標を追加</h2>
-  <div class="row r1">
-    <div><label for="nm">モンスター</label>
-      <select id="nm"><option>インゼムニア</option><option>アムネディア</option><option>コルティーナ</option><option>アーキレット</option><option>不可思議</option></select></div>
-    <div><label for="lk">現在のラック(/99)</label><input id="lk" type="number" min="0" max="99" step="1" value="0"></div>
-    <div><label for="dl">運極にしたい期限</label><input id="dl" type="date"></div>
-  </div>
-  <div class="row r2" style="margin-top:10px">
-<div>
-  <label for="mn">1周にかかる時間（分）</label>
-  <select id="mn">
-    <option value="1">1分</option>
-    <option value="2">2分</option>
-    <option value="3">3分</option>
-    <option value="4">4分</option>
-    <option value="5" selected>5分</option>
-    <option value="6">6分</option>
-    <option value="7">7分</option>
-    <option value="8">8分</option>
-    <option value="9">9分</option>
-    <option value="10">10分</option>
-  </select>
-</div>    
-    <div><label for="rt">出現率（%）</label><input id="rt" type="number" min="0" max="100" step="any" placeholder="例：3"></div>
-    <div><label for="dp">1回での泥数</label><input id="dp" type="number" min="1" step="1" value="1"></div>
-    
-    
-    <button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
-  </div>
-  <div class="over" id="err" role="alert"></div>
-</section>
-
-<div class="card" id="sumcard" style="display:none"><div class="sumline" id="sum"></div></div>
-<div id="list"></div>
-</main>
-
-<script>
-const KEY="monstExPlannerV2";
-let S={margin:1,targets:[]};let pendingDel=-1;
-try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
-const $=id=>document.getElementById(id);
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function fmt(m){m=Math.round(m);if(m<=0)return "0分";if(m<60)return m+"分";const h=Math.floor(m/60),r=m%60;return h+"時間"+(r?r+"分":"")}
-function r1(x){return Math.round(x*10)/10}
-function daysLeft(dl,today){return Math.round((new Date(dl+"T00:00")-new Date(today+"T00:00"))/864e5)+1}
-function dayWeight(name, date) {
-  const day = date.getDate();
-  
-  if (name === "アムネディア" || name === "インゼムニア") {　　　　　　　//ここから降臨日に関するやつ
-    if (day >= 22 && day <= 26) return 0;
-    if (day === 27 || day === 21) return 0.5;
-    return 1;
-  }
-  if (name === "不可思議") {
-    if (day >= 9 && day <= 20) return 0;
-    if (day === 21 || day === 8) return 0.5;
-    return 1;
-  }
-  return 1;
-}
-function totalWeight(name, today, deadline) {
-  let date = new Date(today + "T12:00:00");
-  const end = new Date(deadline + "T12:00:00");
-  let total = 0;
-  if (end < date) return 0;
-  while (date <= end) {
-    total += dayWeight(name, date);
-    date.setDate(date.getDate() + 1);
-  }
-  return total;
-}
-function runsFor(k, p, d) {
-  if (k <= 0 || p <= 0 || d <= 0) return 0;
-  return k / (p * d);
-}
-function calc(t, today) {
-  const rem = Math.max(0, 99 - t.luck);
-  const p = t.rate / 100;
-  const d = (t.drops || 1) + (t.cher ? 3 : 0);
-  const dl = daysLeft(t.deadline, today);
-  const over = dl < 1;
-  const todayWeight = dayWeight(
-    t.name,
-    new Date(today + "T12:00:00")
-  );
-  const remainingWeight = totalWeight(
-    t.name, today, t.deadline
-  );
-  const plan = remainingWeight > 0
-    ? Math.max(0, 99 - t.dayLuck) * todayWeight / remainingWeight
-    : 0;
-  const got = Math.max(0, t.luck - t.dayLuck);
-  const left = Math.max(0, Math.min(rem, plan - got));
-  const runs = left > 0
-    ? Math.ceil(runsFor(left, p, d))
-    : 0;
-  const toMin = c => runsFor(c, p, d) * t.min;
-  return {
-    rem, dl, over, plan, got, left, runs,
-    tToday: runs * t.min,
-    tTotal: toMin(rem)
-  };
-}
-function render(){
-  const today=iso(new Date());
-  S.targets.forEach(t=>{if(t.dayDate!==today){t.dayDate=today;t.dayLuck=t.luck}});
-  
-  if(!S.targets.length){$("sumcard").style.display="none";$("list").innerHTML='<p class="empty">モンスターを選び、現在のラック・期限・1周の時間・出現率を入れると、目標がここに出ます。</p>';return}
-  let tt=0,ta=0;
-  $("list").innerHTML=S.targets.map((t,i)=>{
-    const c=calc(t,today);tt+=c.tToday;ta+=c.tTotal;
-    const pct=Math.round(t.luck/99*100);
-    const body=c.rem===0?`<p class="done">運極達成！</p>`:`
-      <div class="stats">
-        <div class="st"><small>今日の目標</small><b>約${r1(c.plan)}体</b><br><span>済 ${c.got}体／あと約${r1(c.left)}体</span></div>
-        <div class="st"><small>今日あと何周</small><b>${c.runs}周</b><br><span>出現率 ${t.rate}%・${(t.drops||5)+(t.cher?3:0)}泥/周</span></div>
-        <div class="st"><small>今日の残り時間</small><b>${fmt(c.tToday)}</b><br><span>1周 ${t.min}分</span></div>
-        <div class="st"><small>運極まで合計</small><b>${fmt(c.tTotal)}</b><br><span>残り ${c.rem}体</span></div>
-      </div>`;
-    return `<div class="card">
-      <div class="ch"><span class="nm">${esc(t.name)}</span><span class="sub">${c.over?'<span class="over">期限を過ぎています</span>':'期限まで あと'+c.dl+'日（今日を含む）'} <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button></span></div>
-      <div class="bar"><i style="width:${pct}%"></i></div>
-      <div class="bt"><span>ラック ${t.luck} / 99</span><span>${pct}%</span></div>
-      ${body}
-      <div class="log">
-        <div><label>今日入手した体数</label><input type="number" min="0" step="1" value="1" id="g${i}"></div>
-        <div><label>現在のラック</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
-        <button data-log="${i}">記録</button>
-       <label class="chk" style="flex:1 1 180px"><input type="checkbox" data-ch="${i}" ${t.cher?"checked":""} style="width:auto"> チェルノボグ使用（+3泥）</label>
-      </div></div>`}).join("");
-  $("sumcard").style.display="";
-  $("sum").innerHTML=`今日残り <b>${fmt(tt)}</b>　／　運極までの合計 <b>${fmt(ta)}</b>`;
-}
-
-  const rates = {
-  "インゼムニア": 3,
-  "アムネディア": 3,
-  "コルティーナ": 3,
-  "不可思議": 3,
-  "アーキレット": 1
-};
-$("nm").addEventListener("change", () => {
-  $("rt").value = rates[$("nm").value];
-});
-  $("add").onclick=()=>{
-
-  const t={name:$("nm").value,luck:parseInt($("lk").value,10),deadline:$("dl").value,min:parseFloat($("mn").value),rate:parseFloat($("rt").value),drops:parseInt($("dp").value,10)||5,cher:false};
-  let e="";
-  if(!(t.luck>=0&&t.luck<=99))e="ラックは0〜99で入力してください。";
-  else if(!t.deadline)e="期限を選んでください。";
-  else if(!(t.min>0))e="1周にかかる時間（分）を入力してください。";
-  else if(!(t.rate>0&&t.rate<=100))e="出現率は0より大きく100以下の%で入力してください。";
-  $("err").textContent=e;if(e)return;
-  t.dayDate=iso(new Date());t.dayLuck=t.luck;
-  S.targets.push(t);save();render();
-};
-
-$("list").onclick=e=>{if(pendingDel>=0&&!e.target.closest("[data-del]")){pendingDel=-1;render()}
-  const l=e.target.closest("[data-log]");
-  if(l){const i=l.dataset.log,t=S.targets[i],g=parseInt($("g"+i).value,10)||0;t.luck=Math.max(0,Math.min(99,t.luck+g));save();render();return}
-  const d=e.target.closest("[data-del]");
-  if(d){const i=+d.dataset.del;if(pendingDel===i){S.targets.splice(i,1);pendingDel=-1;save()}else pendingDel=i;render()}
-};
-$("list").onchange=e=>{const c=e.target.closest("[data-ch]");if(c){S.targets[c.dataset.ch].cher=c.checked;save();render();return}
-  const x=e.target.closest("[data-luck]");
-  if(x){const t=S.targets[x.dataset.luck],v=parseInt(x.value,10);if(v>=0&&v<=99){t.luck=v;t.dayLuck=Math.min(t.dayLuck,v);save()}render()}
-};
-  $("rt").value = rates[$("nm").value];
 render();
 </script>
 </body>
