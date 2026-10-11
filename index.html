@@ -52,20 +52,20 @@ button.ghost{background:transparent;color:var(--accent)}
 </head>
 <body>
 <main>
-<h1>EX運極 周回プランナー</h1>
+<h1>EX運極計画</h1>
 
 <section>
   <h2>目標を追加</h2>
   <div class="row r1">
     <div><label for="nm">モンスター</label>
       <select id="nm"><option>インゼムニア</option><option>アムネディア</option><option>コルティーナ</option><option>アーキレット</option><option>不可思議</option></select></div>
-    <div><label for="lk">現在のラック（/99）</label><input id="lk" type="number" min="0" max="99" step="1" value="0"></div>
+    <div><label for="lk">現在のラック(/99)</label><input id="lk" type="number" min="0" max="99" step="1" value="0"></div>
     <div><label for="dl">運極にしたい期限</label><input id="dl" type="date"></div>
   </div>
   <div class="row r2" style="margin-top:10px">
-    <div><label for="mn">1周にかかる時間（分）</label><input id="mn" type="number" min="0" step="any" placeholder="例：3"></div>
-    <div><label for="rt">出現率（%・1泥あたり）</label><input id="rt" type="number" min="0" max="100" step="any" placeholder="例：10"></div>
-    <div><label for="dp">1回の泥数（理論値5）</label><input id="dp" type="number" min="1" step="1" value="5"></div>
+    <div><label for="mn">1周にかかる時間（分）</label><input id="mn" type="number" min="0" step="any" placeholder="例：5"></div>
+    <div><label for="rt">出現率（%）</label><input id="rt" type="number" min="0" max="100" step="any" placeholder="例：3"></div>
+    <div><label for="dp">1回の泥数</label><input id="dp" type="number" min="1" step="1" value="5"></div>
     
     
     <button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
@@ -109,17 +109,17 @@ function render(){
   const today=iso(new Date());
   S.targets.forEach(t=>{if(t.dayDate!==today){t.dayDate=today;t.dayLuck=t.luck}});
   
-  if(!S.targets.length){$("sumcard").style.display="none";$("list").innerHTML='<p class="empty">上のフォームでモンスターを選び、ラック・期限・1周の時間・出現率を入れると、今日の目標がここに出ます。</p>';return}
+  if(!S.targets.length){$("sumcard").style.display="none";$("list").innerHTML='<p class="empty">モンスターを選び、現在のラック・期限・1周の時間・出現率を入れると、目標がここに出ます。</p>';return}
   let tt=0,ta=0;
   $("list").innerHTML=S.targets.map((t,i)=>{
     const c=calc(t,today);tt+=c.tToday;ta+=c.tTotal;
     const pct=Math.round(t.luck/99*100);
-    const body=c.rem===0?`<p class="done">運極達成！おめでとう</p>`:`
+    const body=c.rem===0?`<p class="done">運極達成！</p>`:`
       <div class="stats">
         <div class="st"><small>今日の目標</small><b>約${r1(c.plan)}体</b><br><span>済 ${c.got}体／あと約${r1(c.left)}体</span></div>
         <div class="st"><small>今日あと何周</small><b>${c.runs}周</b><br><span>出現率 ${t.rate}%・${(t.drops||5)+(t.cher?3:0)}泥/周</span></div>
         <div class="st"><small>今日の残り時間</small><b>${fmt(c.tToday)}</b><br><span>1周 ${t.min}分</span></div>
-        <div class="st"><small>運極までの合計</small><b>${fmt(c.tTotal)}</b><br><span>残り ${c.rem}体</span></div>
+        <div class="st"><small>運極まで合計</small><b>${fmt(c.tTotal)}</b><br><span>残り ${c.rem}体</span></div>
       </div>`;
     return `<div class="card">
       <div class="ch"><span class="nm">${esc(t.name)}</span><span class="sub">${c.over?'<span class="over">期限を過ぎています</span>':'期限まで あと'+c.dl+'日（今日を含む）'} <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button></span></div>
@@ -129,7 +129,7 @@ function render(){
       <div class="log">
         <div><label>今日入手した体数</label><input type="number" min="0" step="1" value="1" id="g${i}"></div>
         <button data-log="${i}">記録</button>
-        <div><label>ラックを直接修正</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
+        <div><label>現在のラックを直接入力</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
         <label class="chk" style="flex:1 1 180px"><input type="checkbox" data-ch="${i}" ${t.cher?"checked":""} style="width:auto"> チェルノボグ使用（+3泥）</label>
       </div></div>`}).join("");
   $("sumcard").style.display="";
