@@ -142,7 +142,7 @@ function render(){
       ${body}
       <div class="log">
         <div><label>今日入手した体数</label><input type="number" min="0" step="1" value="1" id="g${i}"></div>
-        <div><label>現在のラックを直接入力</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
+        <div><label>現在のラック</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
         <button data-log="${i}">記録</button>
        <label class="chk" style="flex:1 1 180px"><input type="checkbox" data-ch="${i}" ${t.cher?"checked":""} style="width:auto"> チェルノボグ使用（+3泥）</label>
       </div></div>`}).join("");
