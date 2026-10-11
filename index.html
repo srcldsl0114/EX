@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EX運極 周回プランナー</title>
+<style>
+:root{--bg:#f2f3f9;--card:#fff;--ink:#1d2140;--sub:#687090;--line:#dadff0;--accent:#4a4fd1;--soft:#e4e6fb;--ok:#1f8a5b;--warn:#c4562a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172b;--card:#1d2140;--ink:#e8eaf8;--sub:#9aa2c8;--line:#2f3563;--accent:#8c91ff;--soft:#2a2f5e;--ok:#4fd1a0;--warn:#ff9a6e}}
+:root[data-theme="dark"]{--bg:#14172b;--card:#1d2140;--ink:#e8eaf8;--sub:#9aa2c8;--line:#2f3563;--accent:#8c91ff;--soft:#2a2f5e;--ok:#4fd1a0;--warn:#ff9a6e}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:22px;margin:0 0 16px}
+h2{font-size:16px;margin:0 0 10px}
+section,.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row>div{flex:1 1 120px}
+.row.r1,.row.r2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
+.row.r1{grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1fr)}
+.row.r1>div,.row.r2>div{min-width:0}
+@media (max-width:520px){.row.r1,.row.r2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+input,select{min-width:0;max-width:100%;display:block}
+input[type=date]{-webkit-appearance:none;appearance:none;min-height:38px}
+button{font:inherit;cursor:pointer;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:8px 16px}
+@media (prefers-color-scheme:dark){button:not(.ghost):not(.del){color:#14172b}}
+button.ghost{background:transparent;color:var(--accent)}
+.del{background:transparent;border:1px solid var(--line);color:var(--warn);padding:4px 10px;font-size:13px;border-radius:6px}
+.sumline{font-size:15px}.sumline b{font-size:18px;color:var(--accent)}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ch .nm{font-size:18px;font-weight:700}
+.sub{color:var(--sub);font-size:13px}
+.bar{height:14px;background:var(--soft);border-radius:7px;overflow:hidden;margin:8px 0 2px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.bt{display:flex;justify-content:space-between;font-size:13px;color:var(--sub)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+.st{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.st small{display:block;color:var(--sub);font-size:12px}
+.st b{font-size:20px}
+.st span{font-size:12px;color:var(--sub)}
+.log{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.log>div{flex:0 1 110px}
+.done{color:var(--ok);font-weight:700}
+.over{color:var(--warn);font-size:13px}
+.empty{color:var(--sub);font-size:14px}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink);margin:0;padding:8px 0;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<h1>EX運極 周回プランナー</h1>
 
+<section>
+  <h2>目標を追加</h2>
+  <div class="row r1">
+    <div><label for="nm">モンスター</label>
+      <select id="nm"><option>不可思議</option><option>アーキレット</option><option>コルティーナ</option><option>アムネディア</option><option>インゼムニア</option></select></div>
+    <div><label for="lk">現在のラック（/99）</label><input id="lk" type="number" min="0" max="99" step="1" value="0"></div>
+    <div><label for="dl">運極にしたい期限</label><input id="dl" type="date"></div>
+  </div>
+  <div class="row r2" style="margin-top:10px">
+    <div><label for="mn">1周にかかる時間（分）</label><input id="mn" type="number" min="0" step="any" placeholder="例：3"></div>
+    <div><label for="rt">出現率（%・1泥あたり）</label><input id="rt" type="number" min="0" max="100" step="any" placeholder="例：10"></div>
+    <div><label for="dp">1回の泥数（理論値5）</label><input id="dp" type="number" min="1" step="1" value="5"></div>
+    
+    
+    <button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
+  </div>
+  <div class="over" id="err" role="alert"></div>
+</section>
+
+<div class="card" id="sumcard" style="display:none"><div class="sumline" id="sum"></div></div>
+<div id="list"></div>
+</main>
+
+<script>
+const KEY="monstExPlannerV2";
+let S={margin:1,targets:[]};let pendingDel=-1;
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fmt(m){m=Math.round(m);if(m<=0)return "0分";if(m<60)return m+"分";const h=Math.floor(m/60),r=m%60;return h+"時間"+(r?r+"分":"")}
+function r1(x){return Math.round(x*10)/10}
+function daysLeft(dl,today){return Math.round((new Date(dl+"T00:00")-new Date(today+"T00:00"))/864e5)+1}
+
+function runsFor(k,p,d){
+  if(k<=0)return 0;
+  const m=1;
+  
+  return k/(d*p*m);
+}
+function calc(t,today){
+  const rem=99-t.luck,p=t.rate/100,d=(t.drops||5)+(t.cher?3:0);
+  const dl=daysLeft(t.deadline,today),over=dl<1,n=Math.max(1,dl);
+  const plan=(99-t.dayLuck)/n;
+  const got=Math.max(0,t.luck-t.dayLuck);
+  const left=Math.max(0,Math.min(rem,plan-got));const R=runsFor(99-t.dayLuck,p,d)/n,runs=plan>0?Math.ceil(R*left/plan-1e-9):0;
+  const toMin=c=>runsFor(c,p,d)*t.min;
+  return{rem,dl,over,n,plan,got,left,runs,tToday:runs*t.min,tTotal:toMin(rem)};
+}
+
+function render(){
+  const today=iso(new Date());
+  S.targets.forEach(t=>{if(t.dayDate!==today){t.dayDate=today;t.dayLuck=t.luck}});
+  
+  if(!S.targets.length){$("sumcard").style.display="none";$("list").innerHTML='<p class="empty">上のフォームでモンスターを選び、ラック・期限・1周の時間・出現率を入れると、今日の目標がここに出ます。</p>';return}
+  let tt=0,ta=0;
+  $("list").innerHTML=S.targets.map((t,i)=>{
+    const c=calc(t,today);tt+=c.tToday;ta+=c.tTotal;
+    const pct=Math.round(t.luck/99*100);
+    const body=c.rem===0?`<p class="done">運極達成！おめでとう</p>`:`
+      <div class="stats">
+        <div class="st"><small>今日の目標</small><b>約${r1(c.plan)}体</b><br><span>済 ${c.got}体／あと約${r1(c.left)}体</span></div>
+        <div class="st"><small>今日あと何周</small><b>${c.runs}周</b><br><span>出現率 ${t.rate}%・${(t.drops||5)+(t.cher?3:0)}泥/周</span></div>
+        <div class="st"><small>今日の残り時間</small><b>${fmt(c.tToday)}</b><br><span>1周 ${t.min}分</span></div>
+        <div class="st"><small>運極までの合計</small><b>${fmt(c.tTotal)}</b><br><span>残り ${c.rem}体</span></div>
+      </div>`;
+    return `<div class="card">
+      <div class="ch"><span class="nm">${esc(t.name)}</span><span class="sub">${c.over?'<span class="over">期限を過ぎています</span>':'期限まで あと'+c.dl+'日（今日を含む）'} <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button></span></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="bt"><span>ラック ${t.luck} / 99</span><span>${pct}%</span></div>
+      ${body}
+      <div class="log">
+        <div><label>今日入手した体数</label><input type="number" min="0" step="1" value="1" id="g${i}"></div>
+        <button data-log="${i}">記録</button>
+        <div><label>ラックを直接修正</label><input type="number" min="0" max="99" step="1" value="${t.luck}" data-luck="${i}"></div>
+        <label class="chk" style="flex:1 1 180px"><input type="checkbox" data-ch="${i}" ${t.cher?"checked":""} style="width:auto"> チェルノボグ使用（+3泥）</label>
+      </div></div>`}).join("");
+  $("sumcard").style.display="";
+  $("sum").innerHTML=`全体で、今日あと <b>${fmt(tt)}</b>　／　運極までの合計 <b>${fmt(ta)}</b>`;
+}
+
+$("add").onclick=()=>{
+  const t={name:$("nm").value,luck:parseInt($("lk").value,10),deadline:$("dl").value,min:parseFloat($("mn").value),rate:parseFloat($("rt").value),drops:parseInt($("dp").value,10)||5,cher:false};
+  let e="";
+  if(!(t.luck>=0&&t.luck<=99))e="ラックは0〜99で入力してください。";
+  else if(!t.deadline)e="期限を選んでください。";
+  else if(!(t.min>0))e="1周にかかる時間（分）を入力してください。";
+  else if(!(t.rate>0&&t.rate<=100))e="出現率は0より大きく100以下の%で入力してください。";
+  $("err").textContent=e;if(e)return;
+  t.dayDate=iso(new Date());t.dayLuck=t.luck;
+  S.targets.push(t);save();render();
+};
+
+$("list").onclick=e=>{if(pendingDel>=0&&!e.target.closest("[data-del]")){pendingDel=-1;render()}
+  const l=e.target.closest("[data-log]");
+  if(l){const i=l.dataset.log,t=S.targets[i],g=parseInt($("g"+i).value,10)||0;t.luck=Math.max(0,Math.min(99,t.luck+g));save();render();return}
+  const d=e.target.closest("[data-del]");
+  if(d){const i=+d.dataset.del;if(pendingDel===i){S.targets.splice(i,1);pendingDel=-1;save()}else pendingDel=i;render()}
+};
+$("list").onchange=e=>{const c=e.target.closest("[data-ch]");if(c){S.targets[c.dataset.ch].cher=c.checked;save();render();return}
+  const x=e.target.closest("[data-luck]");
+  if(x){const t=S.targets[x.dataset.luck],v=parseInt(x.value,10);if(v>=0&&v<=99){t.luck=v;t.dayLuck=Math.min(t.dayLuck,v);save()}render()}
+};
+render();
+</script>
+</body>
+</html>
