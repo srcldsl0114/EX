@@ -93,7 +93,7 @@ function runsFor(k,p,d){
   if(k<=0)return 0;
   const m=1;
   
-  return k/(d*p*m);
+  return k/(p*d);
 }
 function calc(t,today){
   const rem=99-t.luck,p=t.rate/100,d=(t.drops||5)+(t.cher?3:0);
