@@ -290,8 +290,8 @@ function calc(t, today) {
   // 通常開催日なら1倍、半日開催なら0.5倍
   // 非開催日は、次の開催日に向けた目標を表示
   const plan = todayWeight > 0
-    ? Math.min(needed, dailyGoal * todayWeight)
-    : dailyGoal;
+  ? Math.min(needed, dailyGoal)
+  : dailyGoal;
 
   const got = Math.max(0, t.luck - t.dayLuck);
   const left = Math.max(0, Math.min(rem, plan - got));
