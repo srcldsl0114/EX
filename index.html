@@ -333,6 +333,8 @@ function calc(t, today) {
     tToday: runs * Number(t.min),
     tTotal: toMin(rem),
     todayWeight
+    todayWeight,
+remainingWeight,
   };
 }
 function render() {
@@ -363,13 +365,12 @@ function render() {
     totalOverall+=c.tTotal;
 
     const pct=Math.round(t.luck/99*100);
-
     const body=c.rem===0
       ? '<p class="done">運極達成！</p>'
       : `<div class="stats">
           <div class="st">
-            <small>${c.todayWeight===0?"開催日1日分の目標":"今日の目標"}</small>
-            <b>約${r1(c.plan)}体</b><br>
+　　　　　 　<small>${c.todayWeight===0?`開催日(${c.remainingWeight}日分)の目標`:"今日の目標"}</small>
+          <b>約${r1(c.plan)}体</b><br>
             <span>今日入手 ${c.got}体／目標まで約${r1(c.left)}体</span>
           </div>
           <div class="st">
