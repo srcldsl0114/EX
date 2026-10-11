@@ -367,7 +367,7 @@ function render() {
       ? '<p class="done">運極達成！</p>'
       : `<div class="stats">
           <div class="st">
-          <small>${c.todayWeight===0 ? "開催日(" + c.remainingWeight + ")日分の目標" : "今日の目標"}</small>
+            <small>${c.todayWeight===0 ? "開催日(" + c.remainingWeight + ")日分の目標" : "今日の目標"}</small>
           <b>約${r1(c.plan)}体</b><br>
             <span>今日入手 ${c.got}体／目標まで約${r1(c.left)}体</span>
           </div>
