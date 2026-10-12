@@ -652,7 +652,7 @@ $("importFile").onchange = async e => {
       throw new Error("Invalid data");
     }
 
-    if (!confirm("現在のデータを読み込んだデータで置き換えますか？")) {
+    if (!confirm("現在のデータを置き換えますか？")) {
       return;
     }
 
@@ -662,7 +662,7 @@ $("importFile").onchange = async e => {
     render();
 
     } catch (err) {
-    alert("読み込みに失敗しました。正しいJSONファイルか確認してください。");
+    alert("読み込みに失敗しました。正しいJSONファイルか、確認してください。");
   } finally {
     e.target.value = "";
   }
