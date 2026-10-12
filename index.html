@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EX運極計画</title>
-
+  
 <style>
 :root {
   --bg:#f2f3f9;
@@ -119,6 +119,12 @@ button.ghost { background:transparent; color:var(--accent); }
 <body>
 <main>
 <h1>EX運極計画</h1>
+
+<div class="backup">
+  <button id="export" class="ghost">ファイルに保存</button>
+  <button id="importBtn" class="ghost">ファイルから読み込み</button>
+  <input id="importFile" type="file" accept=".json,application/json" hidden>
+</div>
 
 <section>
   <h2>目標を追加</h2>
