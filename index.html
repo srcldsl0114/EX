@@ -518,10 +518,23 @@ $("nm").addEventListener("change",()=>{
   $("rt").value=rates[$("nm").value];
 });
 
-$("compactMode").addEventListener("change", e => {
-  document.body.classList.toggle("compact", e.target.checked);
-});
 
+const COMPACT_KEY = "monstExPlannerCompact";
+
+$("compactMode").checked =
+  localStorage.getItem(COMPACT_KEY) === "true";
+
+document.body.classList.toggle(
+  "compact",
+  $("compactMode").checked
+);
+
+$("compactMode").addEventListener("change", e => {
+  const enabled = e.target.checked;
+
+  document.body.classList.toggle("compact", enabled);
+  localStorage.setItem(COMPACT_KEY, enabled);
+});
 $("rt").value=rates[$("nm").value];
 render();
 $("add").onclick=()=>{
