@@ -401,10 +401,14 @@ function render() {
           </div>
         </div>`;
 
-    return `<div class="card">
-      <div class="ch">
-        <span class="nm">${esc(t.name)}</span>
-        <span class="sub">
+ return `<div class="card">
+  <div class="ch">
+    <span class="nm">${esc(t.name)}</span>
+    <span class="drag-handle"
+      title="ドラッグして並び替え"
+      aria-label="並び替え"
+      style="cursor:grab;touch-action:none;padding:8px;font-size:24px">⠿</span>
+      <span class="sub">
           ${c.over
             ? '<span class="over">期限を過ぎています</span>'
             : '期限まで あと'+c.dl+'日（今日を含む）'}
