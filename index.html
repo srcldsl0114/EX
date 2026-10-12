@@ -116,6 +116,12 @@ button.ghost { background:transparent; color:var(--accent); }
 .sortable-ghost {
   opacity: 0.35;
 }
+  .backup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
 </style>
 </head>
 
@@ -596,7 +602,72 @@ save();
 render();
 }
 });
+// ファイルに保存
+$("export").onclick = () => {
+  const blob = new Blob(
+    [JSON.stringify(S, null, 2)],
+    { type: "application/json" }
+  );
 
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "EX運極計画.json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+// ファイルから読み込み
+$("importBtn").onclick = () => {
+  $("importFile").click();
+};
+
+$("importFile").onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  try {
+    const data = JSON.parse(await file.text());
+
+    if (
+      !data ||
+      !Array.isArray(data.targets) ||
+      !data.targets.every(t =>
+        t &&
+        typeof t.name === "string" &&
+        Number.isInteger(t.luck) &&
+        t.luck >= 0 &&
+        t.luck <= 99 &&
+        typeof t.deadline === "string" &&
+        Number.isFinite(Number(t.min)) &&
+        Number.isFinite(Number(t.rate)) &&
+        Number.isFinite(Number(t.drops)) &&
+        Number.isFinite(Number(t.multiplier))
+      )
+    ) {
+      throw new Error("Invalid data");
+    }
+
+    if (!confirm("現在のデータを読み込んだデータで置き換えますか？")) {
+      return;
+    }
+
+    S = { targets: data.targets };
+    pendingDel = -1;
+    save();
+    render();
+
+    alert("データを読み込みました。");
+  } catch (err) {
+    alert("読み込みに失敗しました。正しいJSONファイルか確認してください。");
+  } finally {
+    e.target.value = "";
+  }
+};
 </script>
 </body>
 </html>
