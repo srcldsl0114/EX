@@ -661,8 +661,7 @@ $("importFile").onchange = async e => {
     save();
     render();
 
-    alert("データを読み込みました。");
-  } catch (err) {
+    } catch (err) {
     alert("読み込みに失敗しました。正しいJSONファイルか確認してください。");
   } finally {
     e.target.value = "";
