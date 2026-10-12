@@ -569,6 +569,25 @@ $("list").onchange=e=>{
 
 $("rt").value=rates[$("nm").value];
 render();
+  new Sortable(document.getElementById("list"), {
+animation: 150,
+handle: ".drag-handle",
+delay: 180,
+delayOnTouchOnly: true,
+touchStartThreshold: 5,
+
+onEnd: function (e) {
+if (e.oldIndex == null || e.newIndex == null ||
+e.oldIndex === e.newIndex) return;
+
+const moved = S.targets.splice(e.oldIndex, 1)[0];
+S.targets.splice(e.newIndex, 0, moved);
+
+save();
+render();
+}
+});
+
 </script>
 </body>
 </html>
