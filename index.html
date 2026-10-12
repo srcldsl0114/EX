@@ -122,6 +122,13 @@ button.ghost { background:transparent; color:var(--accent); }
   gap: 8px;
   margin-bottom: 14px;
 }
+  .view-option {
+  margin: 0 0 12px;
+}
+
+body.compact .stats {
+  display: none;
+}
 </style>
 </head>
 
@@ -201,6 +208,10 @@ button.ghost { background:transparent; color:var(--accent); }
 <div class="card" id="sumcard" style="display:none">
   <div class="sumline" id="sum"></div>
 </div>
+  <label class="chk view-option">
+  <input type="checkbox" id="compactMode" style="width:auto">
+  簡易表示
+</label>
 <div id="list"></div>
 </main>
 
@@ -488,6 +499,12 @@ $("nm").addEventListener("change",()=>{
   $("rt").value=rates[$("nm").value];
 });
 
+$("compactMode").addEventListener("change", e => {
+  document.body.classList.toggle("compact", e.target.checked);
+});
+
+$("rt").value=rates[$("nm").value];
+render();
 $("add").onclick=()=>{
   const t={
     name:$("nm").value,
