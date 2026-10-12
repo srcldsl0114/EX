@@ -99,6 +99,20 @@ button.ghost { background:transparent; color:var(--accent); }
   display:flex; gap:8px; align-items:center; font-size:14px;
   color:var(--ink); margin:0; padding:8px 0; cursor:pointer;
 }
+  .drag-handle {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.sortable-ghost {
+  opacity: 0.35;
+}
 </style>
 </head>
 
@@ -175,6 +189,7 @@ button.ghost { background:transparent; color:var(--accent); }
 <div id="list"></div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 <script>
 "use strict";
 
