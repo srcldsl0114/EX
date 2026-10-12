@@ -285,12 +285,12 @@ function daysLeft(dl,today) {
   )+1;
 }
 
-// 1日=1、半日=0.5、対象外=0
+// 1日=1、半日=0.5、クエスト期間外=0
 function dayWeight(name,date) {
   const day = date.getDate();
 
-  // アムネディア・インゼムニア
-  // 21日・27日=0.5、28日〜翌月20日=1、22〜26日=0
+  // アム、インゼ
+  // 21日、27日=0.5、28日〜翌月20日=1、22〜26日=0
   if (name==="アムネディア" || name==="インゼムニア") {
     if (day>=22 && day<=26) return 0;
     if (day===21 || day===27) return 0.5;
@@ -298,14 +298,14 @@ function dayWeight(name,date) {
   }
 
   // 不可思議
-  // 8日・21日=0.5、22日〜翌月7日=1、9〜20日=0
+  // 8日、21日=0.5、22日〜翌月7日=1、9〜20日=0
   if (name==="不可思議") {
     if (day>=9 && day<=20) return 0;
     if (day===8 || day===21) return 0.5;
     return 1;
   }
 
-  // コルティーナ・アーキレットは毎日対象
+  // コル、アキは毎日
   return 1;
 }
 
@@ -345,7 +345,7 @@ const p = Math.min(
     new Date(today + "T12:00:00")
   );
 
-  // 今日から期限までの開催日数を、0.5日単位で合計
+  // 今日から期限までの開催日数を、0.5日単位で足す
   const remainingWeight = totalWeight(
     t.name,
     today,
@@ -354,16 +354,15 @@ const p = Math.min(
 
   const needed = Math.max(0, 99 - t.dayLuck);
 
-  // 通常開催日1日分の目標
+  // 開催日1日分の目標
   const dailyGoal = remainingWeight > 0
     ? needed / remainingWeight
     : 0;
 
   // 今日の開催日数に応じた目標
-  // 通常開催日なら1倍、半日開催なら0.5倍
-  // 非開催日は、次の開催日に向けた目標を表示
-
-  // 今日が非開催日なら、次の開催日の重みを取得
+  // 通常開催日なら1倍、半日開催の日なら0.5倍
+  // 開催してない日は、次の開催日に向けた目標を表示
+  // 今日が開催してない日なら、次の開催日を取得
   let targetWeight = todayWeight;
 
   if (targetWeight === 0) {
