@@ -675,6 +675,16 @@ $("list").onclick=e=>{
 };
 
 $("list").onchange=e=>{
+  const multiplierInput=e.target.closest("[data-multiplier]");
+
+  if (multiplierInput) {
+    const i=Number(multiplierInput.dataset.multiplier);
+    S.targets[i].multiplier=Number(multiplierInput.value);
+    save();
+    render();
+    return;
+  }
+
   const check=e.target.closest("[data-ch]");
 
   if (check) {
@@ -699,7 +709,6 @@ $("list").onchange=e=>{
     render();
   }
 };
-
 $("rt").value=rates[$("nm").value];
 render();
   new Sortable(document.getElementById("list"), {
