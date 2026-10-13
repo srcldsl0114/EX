@@ -36,6 +36,38 @@ h1 {
   margin:0 0 16px;
   font-family:"Reggae One", cursive;
 }h2 { font-size:20px; margin:2px 0 0; }
+  
+.goal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.goal-deadline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.goal-deadline label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.goal-deadline input {
+  width: auto;
+  max-width: 170px;
+  min-width: 0;
+}
+
+@media (max-width: 400px) {
+  .goal-header { gap: 6px; }
+  .goal-deadline { gap: 4px; }
+  .goal-deadline input { max-width: 145px; }
+}
 section,.card {
   background:var(--card); border:1px solid var(--line);
   border-radius:10px; padding:2px 12px; margin-bottom:14px;
@@ -156,9 +188,15 @@ body.compact .stats {
   <input id="importFile" type="file" accept=".json,application/json" hidden>
 </div>
 
-<section>
-  <h2>目標を追加</h2>
 
+<section>
+  <div class="goal-header">
+    <h2>目標を追加</h2>
+    <div class="goal-deadline">
+      <label for="dl">期限</label>
+      <input id="dl" type="date">
+    </div>
+  </div>
   <div class="row r1">
     <div>
       <label for="nm">モンスター</label>
