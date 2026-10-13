@@ -532,7 +532,6 @@ function render() {
           
 <small>1日の必要時間</small>
 <b>${fmt(c.tToday)}</b><br>
-${c.tToday > 1440 ? '<span style="color:#d97706;font-size:12px;">⚠ 1日に確保できる時間を超えています。本当に大丈夫？</span><br>' : ''}
 <span>1周 ${t.min}分</span>
 
           </div>
@@ -591,8 +590,15 @@ ${c.tToday > 1440 ? '<span style="color:#d97706;font-size:12px;">⚠ 1日に確�
   }).join("");
 
   $("sumcard").style.display="";
-  $("sum").innerHTML=
-    `今日の必要時間 <b>${fmt(totalToday)}</b> ／ 全て運極までの必要時間 <b>${fmt(totalOverall)}</b>`;
+  
+$("sum").innerHTML =
+  `今日の必要時間 <b>${fmt(totalToday)}</b>
+  ${totalToday > 1440
+    ? '<div style="color:#d97706;font-size:12px;margin-top:4px;">⚠ 1日に確保できる時間を超えています。本当に大丈夫？</div>'
+    : ''
+  }
+  ／ 全て運極までの必要時間 <b>${fmt(totalOverall)}</b>`;
+
 
   save();
 }
