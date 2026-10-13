@@ -529,9 +529,12 @@ function render() {
             <span>${t.rate}% × ${(Number(t.multiplier)||1)}倍・${(Number(t.drops)||1)+(t.cher?3:0)}泥/周</span>
             </div>
           <div class="st">
-            <small>1日の必要時間</small>
-            <b>${fmt(c.tToday)}</b><br>
-            <span>1周 ${t.min}分</span>
+          
+<small>1日の必要時間</small>
+<b>${fmt(c.tToday)}</b><br>
+${c.tToday > 1440 ? '<span style="color:#d97706;font-size:12px;">⚠ 1日に確保できる時間を超えています。本当に大丈夫？</span><br>' : ''}
+<span>1周 ${t.min}分</span>
+
           </div>
           <div class="st">
             <small>運極まで合計</small>
