@@ -112,6 +112,19 @@ input:focus-visible,select:focus-visible,button:focus-visible {
   .row.r1 {
     grid-template-columns: 1fr 1fr;
   }
+  .backup {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .backup button {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    padding: 8px 4px;
+    font-size: 13px;
+  }
+}
 
   .row.r2 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
