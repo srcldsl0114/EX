@@ -540,6 +540,16 @@ function render() {
         <span>${pct}%</span>
       </div>
       ${body}
+      
+      <div class="multiplier-setting">
+        <label for="mg${i}">上振れ・下振れ</label>
+        <select data-multiplier="${i}" id="mg${i}">
+          <option value="0.8" ${Number(t.multiplier)===0.8?"selected":""}>0.8倍（下振れ）</option>
+          <option value="1" ${(!Number(t.multiplier)||Number(t.multiplier)===1)?"selected":""}>1倍（通常）</option>
+          <option value="1.2" ${Number(t.multiplier)===1.2?"selected":""}>1.2倍（上振れ）</option>
+        </select>
+      </div>
+      
       <div class="log">
         <div>
           <label for="g${i}">今日入手した体数</label>
