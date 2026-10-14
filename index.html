@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -161,13 +160,19 @@ button.ghost { background:transparent; color:var(--accent); }
   overflow:hidden; margin:2px 0 2px;
 }
 .bar i {
-  display: block;
-  height: 100%;
-  background: hsl(
-    calc(270 - var(--progress, 0) * 1.5),
-    75%,
-    50%
-  );
+display: block;
+height: 100%;
+background: hsl(
+calc(270 - var(--progress, 0) * 1.5),
+60%,
+50%
+);
+transition: width .25s, background-color .4s;
+}
+
+.bar i.complete {
+background: #22c55e;
+}
   transition: width .25s, background-color .4s;
 }.bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
 .stats {
@@ -565,8 +570,7 @@ function render() {
           <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button>
         </span>
       </div>
-     <div class="bar"><i style="width:${pct}%; --progress:${pct}"></i></div>      <div class="bt">
-        <span>ラック ${t.luck} / 99</span>
+    <div class="bar"><i class="${pct === 100 ? 'complete' : ''}" style="width:${pct}%; --progress:${pct}"></i></div>        <span>ラック ${t.luck} / 99</span>
         <span>${pct}%</span>
       </div>
       ${body}
