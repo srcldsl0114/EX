@@ -575,11 +575,13 @@ function render() {
           <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button>
         </span>
       </div>
-    <div class="bar"><i class="${pct === 100 ? 'complete' : ''}" style="width:${pct}%; --progress:${pct}"></i></div>        <span>ラック ${t.luck} / 99</span>
-        <span>${pct}%</span>
-      </div>
-      ${body}
-      
+   <div class="bar"><i class="${pct === 100 ? 'complete' : ''}" style="width:${pct}%; --progress:${pct}"></i></div>
+<div class="bt">
+  <span>ラック ${t.luck} / 99</span>
+  <span>${pct}%</span>
+</div>
+${body}
+
       <div class="log">
         <div>
           <label for="g${i}">今日入手した体数</label>
