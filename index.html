@@ -163,19 +163,24 @@ button.ghost { background:transparent; color:var(--accent); }
 display: block;
 height: 100%;
 background: hsl(
-calc(270 - var(--progress, 0) * 1.5),
-60%,
-50%
+calc(270 - var(--progress, 0) * 1.02),
+70%,
+45%
 );
 transition: width .25s, background-color .4s;
 }
 
 .bar i.complete {
-background: #22c55e;
+  background: #22c55e;
 }
-  transition: width .25s, background-color .4s;
-}.bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
-.stats {
+
+.bt {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--sub);
+}
+  .stats {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
   gap:8px; margin:6px 0;
 }
