@@ -164,11 +164,16 @@ button.ghost { background:transparent; color:var(--accent); }
   height: 100%;
   background: hsl(
     calc(270 - var(--progress, 0) * 1.5),
-    75%,
+    60%,
     50%
   );
   transition: width .25s, background-color .4s;
-}.bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
+}
+
+.bar i.complete {
+  background: #22c55e;
+}
+  .bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
 .stats {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
   gap:8px; margin:6px 0;
@@ -564,8 +569,7 @@ function render() {
           <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button>
         </span>
       </div>
-     <div class="bar"><i style="width:${pct}%; --progress:${pct}"></i></div>      <div class="bt">
-        <span>ラック ${t.luck} / 99</span>
+     <div class="bar"><i class="${pct === 100 ? 'complete' : ''}" style="width:${pct}%; --progress:${pct}"></i></div>        <span>ラック ${t.luck} / 99</span>
         <span>${pct}%</span>
       </div>
       ${body}
