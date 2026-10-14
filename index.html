@@ -156,22 +156,22 @@ button.ghost { background:transparent; color:var(--accent); }
   .ch .nm { font-size:18px; font-weight:700; }
 .sub { color:var(--sub); font-size:13px; }
 .bar {
-  height:10px; background:var(--soft); border-radius:7px;
-  overflow:hidden; margin:2px 0 2px;
+  height:10px;
+  background:var(--soft);
+  border-radius:7px;
+  overflow:hidden;
+  margin:2px 0 2px;
 }
-  .bar i {
-  display: block;
-  height: 100%;
-  background: hsl(
-    calc(270 - var(--progress, 0) * 1.8),
-    60%,
-    50%
-  );
-    transition: width .25s, background-color .4s;
+
+.bar i {
+  display:block;
+  height:100%;
+  background:hsl(calc(270 - var(--progress, 0) * 1.8), 60%, 50%);
+  transition:width .25s, background-color .4s;
 }
 
 .bar i.complete {
-  background: #22c55e;
+  background:#22c55e;
 }
   .bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
 .stats {
