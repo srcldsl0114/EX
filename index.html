@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -36,205 +37,193 @@ h1 {
   margin:0 0 16px;
   font-family:"Reggae One", cursive;
 }h2 { font-size:20px; margin:2px 0 0; }
-  
+
 .goal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+margin-bottom: 10px;
 }
 
 .goal-deadline {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
+display: flex;
+align-items: center;
+gap: 6px;
+min-width: 0;
 }
 
 .goal-deadline label {
-  margin: 0;
-  white-space: nowrap;
+margin: 0;
+white-space: nowrap;
 }
 
 .goal-deadline input {
-  width: auto;
-  max-width: 170px;
-  min-width: 0;
+width: auto;
+max-width: 170px;
+min-width: 0;
 }
 
 @media (max-width: 400px) {
-  .goal-header { gap: 6px; }
-  .goal-deadline { gap: 4px; }
-  .goal-deadline input { max-width: 145px; }
+.goal-header { gap: 6px; }
+.goal-deadline { gap: 4px; }
+.goal-deadline input { max-width: 145px; }
 }
 section,.card {
-  background:var(--card); border:1px solid var(--line);
-  border-radius:10px; padding:4px 12px; margin-bottom:14px;
+background(--card); border:1px solid var(--line);
+border-radius:10px; padding:4px 12px; margin-bottom:14px;
 }
-label { display:block; font-size:12px; color:var(--sub); margin-bottom:3px; }
+label { display; font-size:12px; color(--sub); margin-bottom:3px; }
 input,select {
-  font:inherit; color:var(--ink); background:var(--bg);
-  border:1px solid var(--line); border-radius:6px;
-  padding:8px 10px; width:100%; min-width:0; max-width:100%;
+font; color(--ink); background(--bg);
+border:1px solid var(--line); border-radius:6px;
+padding:8px 10px; width:100%; min-width:0; max-width:100%;
 }
-input:focus-visible,select:focus-visible,button:focus-visible {
-  outline:2px solid var(--accent); outline-offset:2px;
+input,select,button {
+outline:2px solid var(--accent); outline-offset:2px;
 }
-.row { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+.row { display; gap:10px; flex-wrap; align-items; }
 .row>div { flex:0 1 110px; }
 
-  .row.r1>div,.row.r2>div { min-width:0; }
-  .row.r1 {
-  display: grid;
-  grid-template-columns: 1.2fr 1.2fr auto;
-  gap: 10px;
-  align-items: end;
+.row.r1>div,.row.r2>div { min-width:0; }
+.row.r1 {
+display: grid;
+grid-template-columns: 1.2fr 1.2fr auto;
+gap: 10px;
+align-items: end;
 }
 
 .row.r2 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  align-items: end;
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 10px;
+align-items: end;
 }
-  .row.r2 > div {
-  min-width: 0;
+.row.r2 > div {
+min-width: 0;
 }
 
 .row.r2 select,
 .row.r2 input {
-  width: 100%;
-  min-width: 0;
+width: 100%;
+min-width: 0;
 }
 
 @media (max-width: 520px) {
-  .row.r1 {
-    grid-template-columns: 1fr 1fr;
-  }
-  .backup {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-  }
-  .backup button {
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    padding: 8px 4px;
-    font-size: 13px;
-  }
+.row.r1 {
+grid-template-columns: 1fr 1fr;
+}
+.backup {
+display: flex;
+flex-direction: row;
+gap: 8px;
+}
+.backup button {
+flex: 1;
+min-width: 0;
+white-space: nowrap;
+padding: 8px 4px;
+font-size: 13px;
+}
 }
 
-  .row.r2 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+.row.r2 {
+grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-input[type=date] { -webkit-appearance:none; appearance:none; min-height:38px;  width: 300px;
-  box-sizing: border-box; }
+}
+input[type=date] { -webkit-appearance; appearance; min-height:38px;  width: 300px;
+box-sizing: border-box; }
 button {
-  font:inherit; cursor:pointer; border-radius:6px;
-  border:1px solid var(--accent); background:var(--accent);
-  color:#fff; padding:8px 16px;
+font; cursor; border-radius:6px;
+border:1px solid var(--accent); background(--accent);
+color:#fff; padding:8px 16px;
 }
-button.ghost { background:transparent; color:var(--accent); }
+button.ghost { background; color(--accent); }
 .del {
-  background:transparent; border:1px solid var(--line); color:var(--warn);
-  padding:4px 10px; font-size:13px; border-radius:6px;
+background; border:1px solid var(--line); color(--warn);
+padding:4px 10px; font-size:13px; border-radius:6px;
 }
 .sumline { font-size:15px; }
-.sumline b { font-size:18px; color:var(--accent); }
-.ch {        
-  display:flex;              
-  justify-content:space-between;
-  align-items:baseline;
-  gap:2px 8px;
-  flex-wrap:wrap;
-  line-height:1.1;
-  padding:2px 0;
+.sumline b { font-size:18px; color(--accent); }
+.ch {
+display;
+justify-content;
+align-items;
+gap:2px 8px;
+flex-wrap;
+line-height:1.1;
+padding:2px 0;
 }
-  .ch .nm { font-size:18px; font-weight:700; }
-.sub { color:var(--sub); font-size:13px; }
+.ch .nm { font-size:18px; font-weight:700; }
+.sub { color(--sub); font-size:13px; }
 .bar {
-  height:10px;
-  background:var(--soft);
-  border-radius:7px;
-  overflow:hidden;
-  margin:2px 0 2px;
+height:10px; background(--soft); border-radius:7px;
+overflow; margin:2px 0 2px;
 }
-
-.bar i {
-  display:block;
-  height:100%;
-  background:hsl(calc(270 - var(--progress, 0) * 1.8), 60%, 50%);
-  transition:width .25s, background-color .4s;
-}
-
-.bar i.complete {
-  background:#22c55e;
-}
-  .bt { display:flex; justify-content:space-between; font-size:13px; color:var(--sub); }
+.bar i { display; height:100%; background(--accent); transition .25s; }
+.bt { display; justify-content; font-size:13px; color(--sub); }
 .stats {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:8px; margin:6px 0;
+display; grid-template-columns(auto-fit,minmax(130px,1fr));
+gap:8px; margin:6px 0;
 }
-.st { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
-.st small { display:block; color:var(--sub); font-size:12px; }
+.st { background(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
+.st small { display; color(--sub); font-size:12px; }
 .st b { font-size:20px; }
-.st span { font-size:12px; color:var(--sub); }
-.log { display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end; }
+.st span { font-size:12px; color(--sub); }
+.log { display; gap:8px; flex-wrap; align-items; }
 .log>div { flex:0 1 110px; }
-.done { color:var(--ok); font-weight:700; }
-.over { color:var(--warn); font-size:13px; }
-.empty { color:var(--sub); font-size:14px; }
+.done { color(--ok); font-weight:700; }
+.over { color(--warn); font-size:13px; }
+.empty { color(--sub); font-size:14px; }
 .chk {
-  display:flex; gap:8px; align-items:center; font-size:14px;
-  color:var(--ink); margin:0; padding:8px 0; cursor:pointer;
+display; gap:8px; align-items; font-size:14px;
+color(--ink); margin:0; padding:8px 0; cursor;
 }
-  .drag-handle {
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
+.drag-handle {
+cursor: grab;
+touch-action: none;
+user-select: none;
+-webkit-user-select: none;
 }
 
-.drag-handle:active {
-  cursor: grabbing;
+.drag-handle {
+cursor: grabbing;
 }
 
 .sortable-ghost {
-  opacity: 0.35;
+opacity: 0.35;
 }
-  .backup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
+.backup {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 14px;
 }
-  .view-option {
-  margin: 0 0 12px;
+.view-option {
+margin: 0 0 12px;
 }
 
 body.compact .stats {
-  display: none;
+display: none;
 }
-  
+
 .footer-joke {
-  margin-top: 32px;
-  padding: 12px 0;
-  text-align: right;
-  color: var(--sub);
-  font-size: 12px;
-  opacity: 0.75;
+margin-top: 32px;
+padding: 12px 0;
+text-align: right;
+color: var(--sub);
+font-size: 12px;
+opacity: 0.75;
 }
-  body.compact .multiplier-setting {
-  display: none;
+body.compact .multiplier-setting {
+display: none;
 }
-  
+
 .nm {
-  font-family: "Reggae One", cursive;
+font-family: "Reggae One", cursive;
 }
 </style>
+
 </head>
 
 <body>
@@ -246,7 +235,6 @@ body.compact .stats {
   <button id="importBtn" class="ghost">ファイルから読み込み</button>
   <input id="importFile" type="file" accept=".json,application/json" hidden>
 </div>
-
 
 <section>
   <div class="goal-header">
@@ -296,17 +284,19 @@ body.compact .stats {
       <label for="dp">1回での泥数</label>
       <input id="dp" type="number" min="1" step="1" value="1">
      </div>
-    
-    <div>
-      <label for="mg">上振れ・下振れ</label>
-      <select id="mg">
-      <option value="1.2">1.2倍</option>
-      <option value="1" selected>1倍</option>
-      <option value="0.8">0.8倍</option>
+
+<div>
+  <label for="mg">上振れ・下振れ</label>
+  <select id="mg">
+  <option value="1.2">1.2倍</option>
+  <option value="1" selected>1倍</option>
+  <option value="0.8">0.8倍</option>
+
   </select>
     </div>
-    
-    <button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
+
+<button id="add" style="grid-column:1/-1;justify-self:start;padding:8px 32px">追加</button>
+
   </div>
   <div class="over" id="err" role="alert"></div>
 </section>
@@ -328,6 +318,7 @@ body.compact .stats {
   </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+
 <script>
 "use strict";
 
@@ -569,7 +560,9 @@ function render() {
           <button class="del" data-del="${i}">${pendingDel===i?"もう一度押すと削除":"削除"}</button>
         </span>
       </div>
-   <div class="bar"><i class="${pct === 100 ? 'complete' : ''}" style="width:${pct}%; --progress:${pct}"></i></div>        <span>ラック ${t.luck} / 99</span>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="bt">
+        <span>ラック ${t.luck} / 99</span>
         <span>${pct}%</span>
       </div>
       ${body}
@@ -861,5 +854,6 @@ $("importFile").onchange = async e => {
   }
 };
 </script>
+
 </body>
 </html>
